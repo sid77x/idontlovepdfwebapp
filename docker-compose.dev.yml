@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # Main Streamlit Application (Development mode with hot reload)
+  streamlit-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: idontlovepdf-streamlit-dev
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+      - /app/__pycache__
+    environment:
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - STREAMLIT_SERVER_RUN_ON_SAVE=true
+    command: streamlit run app.py --server.address 0.0.0.0 --server.port 8501 --server.runOnSave true
+    restart: unless-stopped
+    networks:
+      - pdfnet
+
+  # PDF Microservices (Development mode)
+  microservices:
+    build:
+      context: ./microservices
+      dockerfile: Dockerfile
+    container_name: idontlovepdf-microservices-dev
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+      - "8003:8003"
+    volumes:
+      - ./microservices:/app
+      - /app/__pycache__
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PDF_HOST=0.0.0.0
+      - PDF_BASE_PORT=8000
+    restart: unless-stopped
+    networks:
+      - pdfnet
+
+  # React Frontend (Development mode with hot reload)
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: idontlovepdf-frontend-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    command: npm run dev -- --host 0.0.0.0
+    depends_on:
+      - microservices
+    restart: unless-stopped
+    networks:
+      - pdfnet
+
+networks:
+  pdfnet:
+    driver: bridge
