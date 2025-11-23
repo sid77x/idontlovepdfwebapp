@@ -76,7 +76,3 @@ services:
 networks:
   pdfnet:
     driver: bridge
-
-volumes:
-  temp:
-  output:

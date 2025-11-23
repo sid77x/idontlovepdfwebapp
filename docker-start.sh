@@ -96,21 +96,23 @@ case "$MODE" in
         ;;
 esac
 
-# Show access URLs if starting services
-if [ "$MODE" = "production" ] || [ "$MODE" = "prod" ] || [ "$MODE" = "development" ] || [ "$MODE" = "dev" ]; then
-    echo ""
-    echo "✅ Services are starting..."
-    echo ""
-    echo "📱 Access the application at:"
-    echo "   • Streamlit App:      http://localhost:8501"
-    echo "   • Microservices API:  http://localhost:8000"
-    echo "   • API Documentation:  http://localhost:8000/docs"
-    echo "   • React Frontend:     http://localhost:3000"
-    echo ""
-    echo "📊 Check service status: ./docker-start.sh status"
-    echo "📋 View logs:            ./docker-start.sh logs"
-    echo "🛑 Stop services:        ./docker-start.sh stop"
-    echo ""
-fi
+# Show access URLs if services are being started
+case "$MODE" in
+    production|prod|development|dev)
+        echo ""
+        echo "✅ Services are starting..."
+        echo ""
+        echo "📱 Access the application at:"
+        echo "   • Streamlit App:      http://localhost:8501"
+        echo "   • Microservices API:  http://localhost:8000"
+        echo "   • API Documentation:  http://localhost:8000/docs"
+        echo "   • React Frontend:     http://localhost:3000"
+        echo ""
+        echo "📊 Check service status: ./docker-start.sh status"
+        echo "📋 View logs:            ./docker-start.sh logs"
+        echo "🛑 Stop services:        ./docker-start.sh stop"
+        echo ""
+        ;;
+esac
 
 exit 0

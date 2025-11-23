@@ -34,7 +34,7 @@ EXPOSE 8000 8001 8002 8003
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 
-# Health check for orchestrator
+# Health check for orchestrator (start_services.py launches orchestrator on port 8000)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
