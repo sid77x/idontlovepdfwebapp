@@ -392,9 +392,9 @@ Built with ❤️ for privacy-conscious PDF users
 
 ### ⭐ Star this repo if you find it useful!
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/IDontLovePDF?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/IDontLovePDF?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/yourusername/IDontLovePDF?style=social)
+![GitHub stars](https://img.shields.io/github/stars/sid77x/idontlovepdfwebapp?style=social)
+![GitHub forks](https://img.shields.io/github/forks/sid77x/idontlovepdfwebapp?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/sid77x/idontlovepdfwebapp?style=social)
 
 **10 PDF tools available** • **Microservices architecture** • **Modern React UI** • **100% Local Processing**
 
