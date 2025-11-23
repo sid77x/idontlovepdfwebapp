@@ -31,7 +31,6 @@ This repository contains the codebase for **idontlovepdfwebapp**, a web applicat
 
 - Python 3.8+ installed
 - `pip` for installing dependencies
-- Node.js and npm (if you plan to modify frontend components)
 
 ### Installation
 
@@ -40,32 +39,90 @@ This repository contains the codebase for **idontlovepdfwebapp**, a web applicat
     git clone https://github.com/sid77x/idontlovepdfwebapp.git
     cd idontlovepdfwebapp
     ```
-2. **Install Python dependencies:**
+
+2. **Install main application dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
-3. **(Optional) Install frontend dependencies:**
+
+3. **(Optional) Install microservices dependencies:**
+    
+    **Windows:**
+    ```cmd
+    cd microservices
+    install.bat
+    ```
+    
+    **Linux/Mac:**
     ```bash
-    cd frontend
-    npm install
+    cd microservices
+    chmod +x install.sh
+    ./install.sh
     ```
 
-### Running
+### Running the Application
 
-1. **Start the backend:**
-    ```bash
-    python app.py
-    ```
-    or based on your project structure (e.g., Flask, Django), use the appropriate run command.
+This project has two components you can run:
 
-2. **Run the frontend (if separate):**
-    ```bash
-    cd frontend
-    npm start
-    ```
+#### Option 1: Main Web Application (Streamlit UI)
 
-3. **Access the app:**
-    Open [http://localhost:5000](http://localhost:5000) (or appropriate port).
+Start the Streamlit-based web interface:
+
+```bash
+streamlit run app.py
+```
+
+Then open your browser to [http://localhost:8501](http://localhost:8501)
+
+#### Option 2: Microservices Architecture (FastAPI Backend)
+
+Start all PDF microservices:
+
+**Windows:**
+```cmd
+cd microservices
+start_services.bat
+```
+
+**Linux/Mac:**
+```bash
+cd microservices
+python start_services.py
+```
+
+**Services will be available at:**
+- Orchestrator API: [http://localhost:8000/docs](http://localhost:8000/docs)
+- Merge Service: [http://localhost:8001/docs](http://localhost:8001/docs)
+- Rotate Service: [http://localhost:8002/docs](http://localhost:8002/docs)
+- Split Service: [http://localhost:8003/docs](http://localhost:8003/docs)
+
+**To stop services:**
+
+**Windows:**
+```cmd
+cd microservices
+stop_services.bat
+```
+
+**Linux/Mac:**
+```bash
+cd microservices
+python stop_services.py
+```
+
+**To check service status:**
+
+**Windows:**
+```cmd
+cd microservices
+service_status.bat
+```
+
+**Linux/Mac:**
+```bash
+cd microservices
+python stop_services.py status
+```
 
 ---
 
@@ -73,11 +130,24 @@ This repository contains the codebase for **idontlovepdfwebapp**, a web applicat
 
 ```
 idontlovepdfwebapp/
-├── app.py                # Python backend application
-├── requirements.txt      # Python dependencies
-├── static/               # Static files (JS, CSS, images)
-├── templates/            # HTML templates
-├── frontend/             # Frontend app (if applicable)
+├── app.py                      # Main Streamlit web application
+├── requirements.txt            # Main application dependencies
+├── tools/                      # PDF manipulation tools/modules
+├── utils/                      # Utility functions
+├── microservices/              # FastAPI microservices architecture
+│   ├── install.bat            # Windows installer for microservices
+│   ├── install.sh             # Linux/Mac installer for microservices
+│   ├── start_services.bat     # Windows: Start all microservices
+│   ├── start_services.py      # Python: Start all microservices
+│   ├── stop_services.bat      # Windows: Stop all microservices
+│   ├── stop_services.py       # Python: Stop all microservices
+│   ├── service_status.bat     # Windows: Check service status
+│   ├── orchestrator/          # Main orchestrator service
+│   ├── services/              # Individual PDF microservices
+│   ├── common/                # Shared microservice code
+│   ├── requirements.txt       # Microservices dependencies
+│   └── README.md             # Detailed microservices documentation
+├── frontend/                   # Frontend resources
 └── README.md
 ```
 
