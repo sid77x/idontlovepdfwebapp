@@ -1,6 +1,7 @@
 temp/
 uploads/
 outputs/
+output/
 __pycache__/
 *.pyc
 *.pyo
@@ -14,3 +15,7 @@ build/
 .venv/
 venv/
 .env
+
+# Docker
+*.log
+docker-compose.override.yml
