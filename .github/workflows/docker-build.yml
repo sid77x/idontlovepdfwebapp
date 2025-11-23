@@ -10,10 +10,16 @@ on:
       - main
       - develop
 
+# Set minimal permissions for GITHUB_TOKEN
+permissions:
+  contents: read
+
 jobs:
   validate-docker-compose:
     name: Validate Docker Compose Files
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -29,6 +35,8 @@ jobs:
     name: Build Streamlit Image
     runs-on: ubuntu-latest
     needs: validate-docker-compose
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -51,6 +59,8 @@ jobs:
     name: Build Microservices Image
     runs-on: ubuntu-latest
     needs: validate-docker-compose
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -73,6 +83,8 @@ jobs:
     name: Build Frontend Image
     runs-on: ubuntu-latest
     needs: validate-docker-compose
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
